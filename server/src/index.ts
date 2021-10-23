@@ -16,6 +16,7 @@ import { COOKIE_NAME, __prod__ } from "./constants";
 
 import Hello from "./resolver/hello";
 import UserResolver from "./resolver/user";
+import PostResolver from "./resolver/post";
 
 const main = async () => {
   await createConnection({
@@ -61,7 +62,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [Hello, UserResolver],
+      resolvers: [Hello, UserResolver, PostResolver],
       validate: false,
     }),
     context: ({ req, res }): Context => ({ req, res }),
