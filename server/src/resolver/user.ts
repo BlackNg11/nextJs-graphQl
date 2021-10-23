@@ -13,7 +13,8 @@ import { COOKIE_NAME } from "./../constants";
 export default class UserResolver {
   @Mutation((_returns) => UserMutationResponse, { nullable: true })
   async register(
-    @Arg("registerInput") registerInput: RegisterInput
+    @Arg("registerInput") registerInput: RegisterInput,
+    @Ctx() { req }: Context
   ): Promise<UserMutationResponse> {
     const validateRegisterInputError = validateRegisterInput(registerInput);
 
@@ -44,17 +45,21 @@ export default class UserResolver {
 
       const hashedPassword = await argon2.hash(password);
 
-      const newUser = User.create({
+      let newUser = User.create({
         username,
         email,
         password: hashedPassword,
       });
 
+      newUser = await User.save(newUser);
+
+      req.session.userId = newUser.id;
+
       return {
         code: 200,
         success: false,
         message: "User registration successful",
-        user: await User.save(newUser),
+        user: newUser,
       };
     } catch (err) {
       console.error(err);
