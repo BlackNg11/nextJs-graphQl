@@ -52,7 +52,7 @@ const main = async () => {
         maxAge: 1000 * 60 * 60, // one hour
         httpOnly: true, // JS front end cannot access the cookie
         secure: __prod__, // cookie only works in https
-        // sameSite: "none",
+        sameSite: "lax",
       },
       secret: process.env.SESSION_SECRET_DEV_PROD as string,
       saveUninitialized: false, // don't save empty sessions, right from the start
