@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 
-const index = () => {
+const Register = () => {
   return (
     <Wrapper>
       <Formik initialValues={{ username: '', password: '' }} onSubmit={values => console.log(values)}>
@@ -29,4 +29,4 @@ const index = () => {
   );
 }
 
-export default index;
+export default Register;
