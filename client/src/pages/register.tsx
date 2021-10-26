@@ -4,6 +4,7 @@ import { Formik, Form, FormikeHelpers } from "formik";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import { RegisterInput, useRegisterMutation } from "../generated/graphql";
+import { mapFieldsErrors } from "../helper/mapFieldsErrors";
 
 
 const Register = () => {
@@ -23,10 +24,8 @@ const Register = () => {
       }
     })
 
-    if (response?.data?.register.errors) {
-      setErrors({
-        username: "False"
-      })
+    if (response?.data?.register?.errors) {
+      setErrors(mapFieldsErrors(response?.data?.register?.errors))
     }
 
   }
