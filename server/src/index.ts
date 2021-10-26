@@ -4,6 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
+import cors from "cors";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -32,6 +33,13 @@ const main = async () => {
   });
 
   const app = express();
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   const mongoUrl = `mongodb+srv://${process.env.SESSION_DB_USERNAME_DEV_PROD}:${process.env.SESSION_DB_PASSWORD_DEV_PROD}@cluster0.kgxbm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 

@@ -57,7 +57,7 @@ export default class UserResolver {
 
       return {
         code: 200,
-        success: false,
+        success: true,
         message: "User registration successful",
         user: newUser,
       };
