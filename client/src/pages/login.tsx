@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import { LoginInput, useLoginMutation } from "../generated/graphql";
+import { LoginInput, MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { mapFieldsErrors } from "../helper/mapFieldsErrors";
 
 
@@ -22,6 +22,18 @@ const Login = () => {
     const response = await loginUser({
       variables: {
         loginInput: values
+      },
+      update(cache, { data }) {
+        // const meData = cache.readQuery({
+        //   query: MeDocument
+        // })
+
+        if (data?.login.success) {
+          const meData = cache.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: { me: data.login.user }
+          })
+        }
       }
     })
 

@@ -1,8 +1,11 @@
-import Register from './register'
+import Navbar from '../components/Navbar';
 
 const index = () => {
   return (
-    <h1>Hello World</h1>
+    <>
+      <Navbar />
+      <h1>Hello World</h1>
+    </>
   );
 }
 
