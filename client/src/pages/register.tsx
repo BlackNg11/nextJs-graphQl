@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import { RegisterInput, useRegisterMutation } from "../generated/graphql";
+import { MeDocument, MeQuery, RegisterInput, useRegisterMutation } from "../generated/graphql";
 import { mapFieldsErrors } from "../helper/mapFieldsErrors";
 
 
@@ -23,6 +23,14 @@ const Register = () => {
     const response = await registerUser({
       variables: {
         registerInput: values
+      },
+      update(cache, { data }) {
+        if (data?.register.success) {
+          cache.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: { me: data.register.user }
+          })
+        }
       }
     })
 
