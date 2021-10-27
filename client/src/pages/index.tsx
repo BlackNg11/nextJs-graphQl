@@ -2,7 +2,7 @@ import Register from './register'
 
 const index = () => {
   return (
-    <Register />
+    <h1>Hello World</h1>
   );
 }
 

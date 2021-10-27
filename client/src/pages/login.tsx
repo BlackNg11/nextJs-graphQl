@@ -8,7 +8,7 @@ import { RegisterInput, useRegisterMutation } from "../generated/graphql";
 import { mapFieldsErrors } from "../helper/mapFieldsErrors";
 
 
-const Register = () => {
+const Login = () => {
   const router = useRouter()
 
   const initialValues = {
@@ -66,4 +66,4 @@ const Register = () => {
   );
 }
 
-export default Register;
+export default Login;
